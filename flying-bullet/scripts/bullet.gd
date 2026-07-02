@@ -1,3 +1,4 @@
+# The player character, script controls physics/movement, lives, and score
 extends CharacterBody2D
 
 signal current_score(score: int)
@@ -27,12 +28,14 @@ var linear_velocity
 var rotational_velocity
 var collision_count
 
+# Represents a direction; neutral means no direction
 enum Direction {
 	LEFT = -1, 
 	RIGHT = 1,
 	NEUTRAL = 0,
 }
 
+# Sets up the player character for the game to start
 func _ready() -> void:
 	collision_count = 0
 	collision_limit_timer = %ResetCollisionLimit
@@ -44,7 +47,7 @@ func _ready() -> void:
 	health = INITIAL_HEALTH
 	score = 0
 
-
+# Uses user input to record the direction the player is going for later use
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("turn_right"):
 		turn_direction = Direction.RIGHT
@@ -54,7 +57,7 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		turn_direction = Direction.NEUTRAL
 	get_viewport().set_input_as_handled()
 
-
+# 
 func special_physics_process(delta: float) -> void:
 	var special_delta = delta * FPS_DEVELOPED_IN
 	
@@ -78,21 +81,17 @@ func special_physics_process(delta: float) -> void:
 	if collision != null:
 		bounce(collision)
 
-
+# Cause the player to take a specified amount of damage
+# also handles the players dying/health being < 0
 func damage(amount: int) -> void:
 	health -= amount
 	if health < 0:
 		health = 0
 	emit_signal("current_health", health)
-	do_explosion()
 
 
-func do_explosion() -> void:
-	var explosion = DAMAGE_EXPLOSION.instantiate()
-	explosion.position = position
-	add_sibling(explosion)
-
-
+# Bounce the player off the object from the passed in collision, also does other stuff like
+# scores score, deals damage to enemies, and increases the player speed
 func bounce(collision: KinematicCollision2D) -> void:
 	%BounceSound.volume_linear = randf_range(0.33, 1.66)
 	%BounceSound.play(0.74)
