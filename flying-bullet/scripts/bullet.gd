@@ -88,6 +88,13 @@ func damage(amount: int) -> void:
 	if health < 0:
 		health = 0
 	emit_signal("current_health", health)
+	do_explosion()
+
+# Create a cool explosion at the player's position
+func do_explosion() -> void:
+	var explosion = DAMAGE_EXPLOSION.instantiate()
+	explosion.position = position
+	add_sibling(explosion)
 
 
 # Bounce the player off the object from the passed in collision, also does other stuff like
