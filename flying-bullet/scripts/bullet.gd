@@ -58,6 +58,9 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 # handles movement/physics, including using turn_direction, applying drag, and calling bouce() on collisions
+# is 'special_physics_process' and not '_physics_process', because I wanted more control over when in a frame this was called
+# because I was wondering if it was responsible for a bug. It was not but it stuck
+# (this function is called in World)
 func special_physics_process(delta: float) -> void:
 	var special_delta = delta * FPS_DEVELOPED_IN
 	
