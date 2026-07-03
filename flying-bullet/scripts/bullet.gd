@@ -47,7 +47,7 @@ func _ready() -> void:
 	health = INITIAL_HEALTH
 	score = 0
 
-# Uses user input to record the direction the player is going for later use
+# Uses user input to record the direction the player is going, in turn_direction, for later use
 func _unhandled_key_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("turn_right"):
 		turn_direction = Direction.RIGHT
@@ -57,7 +57,7 @@ func _unhandled_key_input(_event: InputEvent) -> void:
 		turn_direction = Direction.NEUTRAL
 	get_viewport().set_input_as_handled()
 
-# 
+# handles movement/physics, including using turn_direction, applying drag, and calling bouce() on collisions
 func special_physics_process(delta: float) -> void:
 	var special_delta = delta * FPS_DEVELOPED_IN
 	
