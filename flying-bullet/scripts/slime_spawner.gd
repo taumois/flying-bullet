@@ -11,7 +11,7 @@ func _ready() -> void:
 	bullet = get_node("../Bullet")
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	var new_slime = LASER_SLIME.instantiate() if randf() > 0.5 else ROCKET_SLIME.instantiate()
 	var offset_vector = Vector2.from_angle(randf() * PI) * DISTANCE_TO_SPAWN_FROM_BULLET
 	new_slime.position = bullet.position + offset_vector
