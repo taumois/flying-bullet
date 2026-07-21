@@ -36,10 +36,6 @@ script = ExtResource("2_k0juu")
 [node name="SlimeSpawner" type="Node" parent="." unique_id=314571371]
 script = ExtResource("7_i7141")
 
-[node name="SpawnCooldown" type="Timer" parent="SlimeSpawner" unique_id=942607742]
-wait_time = 3.0
-autostart = true
-
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=880247344]
 unique_name_in_owner = true
 stream = ExtResource("8_4mrxx")
@@ -51,4 +47,3 @@ volume_db = -17.434
 [connection signal="current_speed" from="Bullet" to="Bullet/CameraManipulator" method="_on_bullet_current_speed"]
 [connection signal="current_speed" from="Bullet" to="Bullet/CameraManipulator/Camera" method="_on_bullet_current_speed"]
 [connection signal="current_scale" from="Bullet/CameraManipulator" to="Bullet/CameraManipulator/Camera" method="_on_camera_manipulator_current_scale"]
-[connection signal="timeout" from="SlimeSpawner/SpawnCooldown" to="SlimeSpawner" method="_on_spawn_cooldown_timeout"]
